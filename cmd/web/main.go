@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"time"
@@ -29,6 +30,12 @@ func main() {
 
 	time.Sleep(100 * time.Millisecond)
 
+	out, err := os.Create("translation.mp3")
+	if err != nil {
+		fmt.Printf("error os create: %s\n", err)
+	}
+	defer out.Close()
+
 	url := "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=Understand&tl=en&total=1&idx=0"
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
@@ -39,7 +46,10 @@ func main() {
 		fmt.Printf("error making http request: %s\n", err)
 		os.Exit(1)
 	}
+	defer res.Body.Close()
 
 	fmt.Printf("client: got response!\n")
 	fmt.Printf("client: status code: %d\n", res.StatusCode)
+
+	io.Copy(out, res.Body)
 }
