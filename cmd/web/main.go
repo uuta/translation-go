@@ -29,8 +29,12 @@ func main() {
 
 	time.Sleep(100 * time.Millisecond)
 
-	requestURL := "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=Understand&tl=en&total=1&idx=0"
-	res, err := http.Get(requestURL)
+	url := "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=Understand&tl=en&total=1&idx=0"
+	client := &http.Client{}
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Set("Content-Type", "audio/mpeg")
+	req.Header.Set("Content-Disposition", "attachment; filename='translation.mp3'")
+	res, err := client.Do(req)
 	if err != nil {
 		fmt.Printf("error making http request: %s\n", err)
 		os.Exit(1)
