@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/uuta/translation-go/internal/google"
 )
 
 // TODO: Does it need?
@@ -50,7 +51,7 @@ func handleReq() {
 	r := mux.NewRouter()
 	// TODO: Fix endpoint
 	// TODO: Make a handler
-	r.HandleFunc("/", google.handleGet())
+	r.HandleFunc("/", google.HandleGet())
 	server := http.Server{
 		// TODO: Consider serverPort is properly
 		Addr:    fmt.Sprintf(":%d", serverPort),
