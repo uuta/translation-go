@@ -20,6 +20,7 @@ func main() {
 
 	time.Sleep(100 * time.Millisecond)
 
+	// TODO: make a function that deals with downloading
 	// Make a file
 	out, err := os.Create("translation.mp3")
 	if err != nil {
