@@ -50,6 +50,7 @@ func main() {
 func handleReq() {
 	r := mux.NewRouter()
 	// TODO: Fix endpoint
+	// TODO: Make a handler
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// an example API handler
 		json.NewEncoder(w).Encode(map[string]bool{"ok": true})
