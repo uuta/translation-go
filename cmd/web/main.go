@@ -1,12 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 // TODO: Does it need?
@@ -14,13 +17,14 @@ const serverPort = 3333
 
 func main() {
 	go func() {
-		mux := http.NewServeMux()
-		mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-			fmt.Printf("server: %s /\n", r.Method)
+		r := mux.NewRouter()
+		r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			// an example API handler
+			json.NewEncoder(w).Encode(map[string]bool{"ok": true})
 		})
 		server := http.Server{
 			Addr:    fmt.Sprintf(":%d", serverPort),
-			Handler: mux,
+			Handler: r,
 		}
 		if err := server.ListenAndServe(); err != nil {
 			if !errors.Is(err, http.ErrServerClosed) {
@@ -31,6 +35,7 @@ func main() {
 
 	time.Sleep(100 * time.Millisecond)
 
+	// Make a file
 	out, err := os.Create("translation.mp3")
 	if err != nil {
 		fmt.Printf("error os create: %s\n", err)
