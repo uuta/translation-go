@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -51,10 +50,7 @@ func handleReq() {
 	r := mux.NewRouter()
 	// TODO: Fix endpoint
 	// TODO: Make a handler
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// an example API handler
-		json.NewEncoder(w).Encode(map[string]bool{"ok": true})
-	})
+	r.HandleFunc("/", google.handleGet())
 	server := http.Server{
 		// TODO: Consider serverPort is properly
 		Addr:    fmt.Sprintf(":%d", serverPort),

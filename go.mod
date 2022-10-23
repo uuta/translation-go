@@ -1,4 +1,4 @@
-module github.com/uuta/test-translation
+module github.com/uuta/translation-go
 
 go 1.19
 
