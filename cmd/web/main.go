@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/uuta/translation-go/internal/google"
@@ -15,9 +14,6 @@ const serverPort = 3333
 
 func main() {
 	handleReq()
-
-	// TODO: Does it need?
-	time.Sleep(100 * time.Millisecond)
 
 }
 
